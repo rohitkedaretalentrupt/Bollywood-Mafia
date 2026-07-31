@@ -1,0 +1,206 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-ink-950 font-body text-gold-100/90 antialiased;
+    overscroll-behavior-y: none;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Kill the native focus ring but keep keyboard accessibility visible. */
+  :focus-visible {
+    outline: 2px solid rgba(245, 197, 24, 0.7);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: rgba(229, 9, 20, 0.45);
+    color: #fff8e1;
+  }
+
+  input,
+  button,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  /* Slim cinematic scrollbars */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.03);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #a8842a, #6f5518);
+    border-radius: 99px;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply border border-white/10 bg-white/[0.045] backdrop-blur-xl;
+  }
+
+  .glass-strong {
+    @apply border border-gold-400/25 bg-ink-900/80 backdrop-blur-2xl;
+  }
+
+  .panel {
+    @apply rounded-3xl border border-white/10 bg-white/[0.045] shadow-deep backdrop-blur-xl;
+  }
+
+  .text-gold {
+    @apply bg-gold-sheen bg-clip-text text-transparent;
+    background-size: 200% 100%;
+  }
+
+  .text-gold-anim {
+    @apply animate-shimmer bg-gold-sheen bg-clip-text text-transparent;
+    background-size: 200% 100%;
+  }
+
+  .hairline {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-gold-400/45 to-transparent;
+  }
+
+  .btn-sheen {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .btn-sheen::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      100deg,
+      transparent 20%,
+      rgba(255, 255, 255, 0.32) 48%,
+      transparent 74%
+    );
+    transform: translateX(-120%) skewX(-18deg);
+    pointer-events: none;
+  }
+
+  .btn-sheen:hover::after {
+    animation: sweep 0.9s ease-out;
+  }
+
+  /* Award-show marquee bulbs */
+  .marquee {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+  }
+  .marquee > i {
+    width: 6px;
+    height: 6px;
+    border-radius: 99px;
+    background: #f5c518;
+    box-shadow: 0 0 10px 3px rgba(245, 197, 24, 0.6);
+    animation: bulb 1.6s ease-in-out infinite;
+  }
+
+  .film-grain::before {
+    content: '';
+    position: fixed;
+    inset: -50%;
+    pointer-events: none;
+    z-index: 60;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grainShift 0.6s steps(3) infinite;
+  }
+
+  .vignette::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 55;
+    background: radial-gradient(120% 100% at 50% 40%, transparent 45%, rgba(0, 0, 0, 0.72) 100%);
+  }
+
+  .scrim {
+    @apply pointer-events-none fixed inset-0 z-0;
+    background:
+      radial-gradient(90% 60% at 50% -8%, rgba(229, 9, 20, 0.22) 0%, rgba(4, 3, 8, 0) 62%),
+      radial-gradient(70% 50% at 50% 108%, rgba(245, 197, 24, 0.12) 0%, rgba(4, 3, 8, 0) 60%);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@layer utilities {
+  .safe-top {
+    padding-top: max(0.75rem, env(safe-area-inset-top));
+  }
+  .safe-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+  .tracking-cine {
+    letter-spacing: 0.24em;
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .drag-none {
+    -webkit-user-drag: none;
+    user-select: none;
+  }
+}
+
+@keyframes grainShift {
+  0% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(-3%, 2%);
+  }
+  66% {
+    transform: translate(2%, -3%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

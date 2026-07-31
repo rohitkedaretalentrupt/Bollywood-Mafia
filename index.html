@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#040308" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta
+      name="description"
+      content="Bollywood Mafia — a cinematic social deduction game. Find the villain before the movie ends."
+    />
+    <title>🎬 Bollywood Mafia</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html,
+      body {
+        background: #040308;
+        margin: 0;
+      }
+      #boot {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        color: #f5c518;
+        font-family: Impact, 'Arial Narrow', sans-serif;
+        letter-spacing: 0.18em;
+        font-size: 13px;
+        z-index: 9999;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+      }
+    </style>
+  </head>
+  <body class="bg-ink-950">
+    <div id="root"></div>
+    <div id="boot">LOADING THE SET…</div>
+    <script>
+      window.addEventListener('load', function () {
+        var b = document.getElementById('boot')
+        if (b) {
+          b.style.opacity = '0'
+          setTimeout(function () {
+            if (b && b.parentNode) b.parentNode.removeChild(b)
+          }, 450)
+        }
+      })
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
